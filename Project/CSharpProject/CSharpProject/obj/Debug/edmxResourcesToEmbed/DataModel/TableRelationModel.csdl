@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CollegeDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Course">
+    <Key>
+      <PropertyRef Name="CourseID" />
+    </Key>
+    <Property Name="CourseID" Type="Int32" Nullable="false" />
+    <Property Name="ProgramID" Type="Int32" Nullable="false" />
+    <Property Name="CourseName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Credits" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Program" Relationship="Self.FK__Course__ProgramI__4AB81AF0" FromRole="Course" ToRole="Program" />
+    <NavigationProperty Name="Marks" Relationship="Self.FK__Marks__CourseID__3E52440B" FromRole="Course" ToRole="Marks" />
+    <NavigationProperty Name="ProfRelCourses" Relationship="Self.FK__ProfRelCo__Cours__6EF57B66" FromRole="Course" ToRole="ProfRelCourse" />
+    <NavigationProperty Name="TimeTables" Relationship="CollegeDatabaseModel.FK__TimeTable__Cours__3A4CA8FD" FromRole="Course" ToRole="TimeTable" />
+  </EntityType>
+  <EntityType Name="Professor">
+    <Key>
+      <PropertyRef Name="ProfessorID" />
+    </Key>
+    <Property Name="ProfessorID" Type="Int32" Nullable="false" />
+    <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="Phone" Type="Int32" />
+    <Property Name="Street" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="City" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Province" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="PostalCode" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="UserName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="TImeTableID" Type="Int32" />
+    <NavigationProperty Name="TimeTable" Relationship="Self.FK__Professor__TImeT__01142BA1" FromRole="Professor" ToRole="TimeTable" />
+    <NavigationProperty Name="ProfRelCourses" Relationship="Self.FK__ProfRelCo__Profe__6FE99F9F" FromRole="Professor" ToRole="ProfRelCourse" />
+  </EntityType>
+  <EntityType Name="ProfRelCourse">
+    <Key>
+      <PropertyRef Name="ProfRelCourseID" />
+    </Key>
+    <Property Name="CourseID" Type="Int32" Nullable="false" />
+    <Property Name="ProfessorID" Type="Int32" Nullable="false" />
+    <Property Name="ProfRelCourseID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Course" Relationship="Self.FK__ProfRelCo__Cours__6EF57B66" FromRole="ProfRelCourse" ToRole="Course" />
+    <NavigationProperty Name="Professor" Relationship="Self.FK__ProfRelCo__Profe__6FE99F9F" FromRole="ProfRelCourse" ToRole="Professor" />
+  </EntityType>
+  <EntityType Name="Program">
+    <Key>
+      <PropertyRef Name="ProgramID" />
+    </Key>
+    <Property Name="ProgramID" Type="Int32" Nullable="false" />
+    <Property Name="ProgramName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="AvailableSeats" Type="Int32" Nullable="false" />
+    <Property Name="Semesters" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Courses" Relationship="Self.FK__Course__ProgramI__4AB81AF0" FromRole="Program" ToRole="Course" />
+    <NavigationProperty Name="Students" Relationship="Self.FK__Student__Program__02084FDA" FromRole="Program" ToRole="Student" />
+  </EntityType>
+  <EntityType Name="Student">
+    <Key>
+      <PropertyRef Name="StudentID" />
+    </Key>
+    <Property Name="StudentID" Type="Int32" Nullable="false" />
+    <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="Phone" Type="Int32" />
+    <Property Name="Street" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="City" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Province" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="PostalCode" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="TimeTableID" Type="Int32" />
+    <Property Name="ProgramID" Type="Int32" />
+    <Property Name="UserName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="Program" Relationship="Self.FK__Student__Program__02084FDA" FromRole="Student" ToRole="Program" />
+    <NavigationProperty Name="Marks" Relationship="Self.FK__Marks__StudentID__3D5E1FD2" FromRole="Student" ToRole="Marks" />
+    <NavigationProperty Name="TimeTable" Relationship="Self.FK__Student__TimeTab__72C60C4A" FromRole="Student" ToRole="TimeTable" />
+  </EntityType>
+  <EntityType Name="TimeTable">
+    <Key>
+      <PropertyRef Name="TimeTableID" />
+    </Key>
+    <Property Name="RoomNumber" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="TimeTableID" Type="Int32" Nullable="false" />
+    <Property Name="Day" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="StartTime" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="EndTime" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Professors" Relationship="Self.FK__Professor__TImeT__01142BA1" FromRole="TimeTable" ToRole="Professor" />
+    <NavigationProperty Name="Students" Relationship="Self.FK__Student__TimeTab__72C60C4A" FromRole="TimeTable" ToRole="Student" />
+    <Property Name="CourseID" Type="Int32" />
+    <NavigationProperty Name="Course" Relationship="CollegeDatabaseModel.FK__TimeTable__Cours__3A4CA8FD" FromRole="TimeTable" ToRole="Course" />
+  </EntityType>
+  <EntityType Name="Mark">
+    <Key>
+      <PropertyRef Name="StudentID" />
+      <PropertyRef Name="CourseID" />
+      <PropertyRef Name="Marks" />
+    </Key>
+    <Property Name="StudentID" Type="Int32" Nullable="false" />
+    <Property Name="CourseID" Type="Int32" Nullable="false" />
+    <Property Name="Marks" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Course" Relationship="Self.FK__Marks__CourseID__3E52440B" FromRole="Marks" ToRole="Course" />
+    <NavigationProperty Name="Student" Relationship="Self.FK__Marks__StudentID__3D5E1FD2" FromRole="Marks" ToRole="Student" />
+  </EntityType>
+  <Association Name="FK__Course__ProgramI__4AB81AF0">
+    <End Role="Program" Type="Self.Program" Multiplicity="1" />
+    <End Role="Course" Type="Self.Course" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Program">
+        <PropertyRef Name="ProgramID" />
+      </Principal>
+      <Dependent Role="Course">
+        <PropertyRef Name="ProgramID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Marks__CourseID__3E52440B">
+    <End Role="Course" Type="Self.Course" Multiplicity="1" />
+    <End Role="Marks" Type="Self.Mark" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="CourseID" />
+      </Principal>
+      <Dependent Role="Marks">
+        <PropertyRef Name="CourseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ProfRelCo__Cours__6EF57B66">
+    <End Role="Course" Type="Self.Course" Multiplicity="1" />
+    <End Role="ProfRelCourse" Type="Self.ProfRelCourse" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="CourseID" />
+      </Principal>
+      <Dependent Role="ProfRelCourse">
+        <PropertyRef Name="CourseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Professor__TImeT__01142BA1">
+    <End Role="TimeTable" Type="Self.TimeTable" Multiplicity="1" />
+    <End Role="Professor" Type="Self.Professor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TimeTable">
+        <PropertyRef Name="TimeTableID" />
+      </Principal>
+      <Dependent Role="Professor">
+        <PropertyRef Name="TImeTableID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ProfRelCo__Profe__6FE99F9F">
+    <End Role="Professor" Type="Self.Professor" Multiplicity="1" />
+    <End Role="ProfRelCourse" Type="Self.ProfRelCourse" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Professor">
+        <PropertyRef Name="ProfessorID" />
+      </Principal>
+      <Dependent Role="ProfRelCourse">
+        <PropertyRef Name="ProfessorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Student__Program__02084FDA">
+    <End Role="Program" Type="Self.Program" Multiplicity="1" />
+    <End Role="Student" Type="Self.Student" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Program">
+        <PropertyRef Name="ProgramID" />
+      </Principal>
+      <Dependent Role="Student">
+        <PropertyRef Name="ProgramID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Marks__StudentID__3D5E1FD2">
+    <End Role="Student" Type="Self.Student" Multiplicity="1" />
+    <End Role="Marks" Type="Self.Mark" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="StudentID" />
+      </Principal>
+      <Dependent Role="Marks">
+        <PropertyRef Name="StudentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Student__TimeTab__72C60C4A">
+    <End Role="TimeTable" Type="Self.TimeTable" Multiplicity="1" />
+    <End Role="Student" Type="Self.Student" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TimeTable">
+        <PropertyRef Name="TimeTableID" />
+      </Principal>
+      <Dependent Role="Student">
+        <PropertyRef Name="TimeTableID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CollegeDatabaseEntities2" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Courses" EntityType="Self.Course" />
+    <EntitySet Name="Professors" EntityType="Self.Professor" />
+    <EntitySet Name="ProfRelCourses" EntityType="Self.ProfRelCourse" />
+    <EntitySet Name="Programs" EntityType="Self.Program" />
+    <EntitySet Name="Students" EntityType="Self.Student" />
+    <EntitySet Name="TimeTables" EntityType="Self.TimeTable" />
+    <EntitySet Name="Marks" EntityType="Self.Mark" />
+    <AssociationSet Name="FK__Course__ProgramI__4AB81AF0" Association="Self.FK__Course__ProgramI__4AB81AF0">
+      <End Role="Program" EntitySet="Programs" />
+      <End Role="Course" EntitySet="Courses" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Marks__CourseID__3E52440B" Association="Self.FK__Marks__CourseID__3E52440B">
+      <End Role="Course" EntitySet="Courses" />
+      <End Role="Marks" EntitySet="Marks" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ProfRelCo__Cours__6EF57B66" Association="Self.FK__ProfRelCo__Cours__6EF57B66">
+      <End Role="Course" EntitySet="Courses" />
+      <End Role="ProfRelCourse" EntitySet="ProfRelCourses" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Professor__TImeT__01142BA1" Association="Self.FK__Professor__TImeT__01142BA1">
+      <End Role="TimeTable" EntitySet="TimeTables" />
+      <End Role="Professor" EntitySet="Professors" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ProfRelCo__Profe__6FE99F9F" Association="Self.FK__ProfRelCo__Profe__6FE99F9F">
+      <End Role="Professor" EntitySet="Professors" />
+      <End Role="ProfRelCourse" EntitySet="ProfRelCourses" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Student__Program__02084FDA" Association="Self.FK__Student__Program__02084FDA">
+      <End Role="Program" EntitySet="Programs" />
+      <End Role="Student" EntitySet="Students" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Marks__StudentID__3D5E1FD2" Association="Self.FK__Marks__StudentID__3D5E1FD2">
+      <End Role="Student" EntitySet="Students" />
+      <End Role="Marks" EntitySet="Marks" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Student__TimeTab__72C60C4A" Association="Self.FK__Student__TimeTab__72C60C4A">
+      <End Role="TimeTable" EntitySet="TimeTables" />
+      <End Role="Student" EntitySet="Students" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TimeTable__Cours__3A4CA8FD" Association="CollegeDatabaseModel.FK__TimeTable__Cours__3A4CA8FD">
+      <End Role="Course" EntitySet="Courses" />
+      <End Role="TimeTable" EntitySet="TimeTables" />
+    </AssociationSet>
+  </EntityContainer>
+  <Association Name="FK__TimeTable__Cours__3A4CA8FD">
+    <End Type="CollegeDatabaseModel.Course" Role="Course" Multiplicity="0..1" />
+    <End Type="CollegeDatabaseModel.TimeTable" Role="TimeTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="CourseID" />
+      </Principal>
+      <Dependent Role="TimeTable">
+        <PropertyRef Name="CourseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

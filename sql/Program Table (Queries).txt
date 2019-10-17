@@ -1,0 +1,10 @@
+Program Table
+
+1:-GetProgramInfoByStudentID    reuired tabels For Joining (Program, student)
+SELECT Program.ProgramID, Program.ProgramName, Program.AvailableSeats, Program.Semesters
+FROM     Program INNER JOIN
+                  Student ON Program.ProgramID = Student.ProgramID
+WHERE  (Program.ProgramID =
+                      (SELECT ProgramID
+                       FROM      Student AS Student_1
+                       WHERE   (StudentID = @StudentID)))

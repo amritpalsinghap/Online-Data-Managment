@@ -1,0 +1,10 @@
+Marks Table
+
+1:-GetDataMarksByStudentID
+ SELECT CourseID, Marks, StudentID FROM Marks WHERE (StudentID = @StudentID)
+
+2:-UpdateStudentMarks 
+ UPDATE Marks SET  Marks = @Marks
+ WHERE  (CourseID = @courseID) AND (StudentID = @studentID)
+
+3

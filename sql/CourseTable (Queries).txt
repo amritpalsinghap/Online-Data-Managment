@@ -1,0 +1,17 @@
+Course Table
+
+1:-GetCoursesByProfessorID  Required table for joining (Course, ProfRelCourse)
+ SELECT Course.CourseID, Course.CourseName, Course.Credits, Course.ProgramID
+FROM     Course INNER JOIN
+                  ProfRelCourse ON Course.CourseID = ProfRelCourse.CourseID
+WHERE  (Course.CourseID IN
+                      (SELECT CourseID
+                       FROM      ProfRelCourse AS ProfRelCourse_1
+                       WHERE   (ProfessorID = @ProfessorID)))
+
+					   
+2:-GetCoursesByStudentID required table for joining(Course, Program, Student)
+ SELECT Course.CourseID, Course.CourseName, Course.Credits, Course.ProgramID FROM Course INNER JOIN Program ON Course.ProgramID = Program.ProgramID INNER JOIN Student ON Program.ProgramID = Student.ProgramID WHERE (Course.ProgramID = (SELECT ProgramID FROM Program AS Program_1 WHERE (ProgramID = (SELECT ProgramID FROM Student AS Student_1 WHERE (StudentID = @studentID)))))
+
+
+3
