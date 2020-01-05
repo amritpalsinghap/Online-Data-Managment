@@ -7,8 +7,8 @@
       <b-navbar-nav class="ml-auto">
         <b-nav-item to="/">Home</b-nav-item>
         <b-nav-item to="/about">About</b-nav-item>
-        <b-nav-item to="/login"  v-b-modal="modal-1">Login</b-nav-item>
-
+        <b-nav-item to="/login">Login</b-nav-item>
+        <b-nav-item to="/profile">Profile</b-nav-item>
         <!-- Navbar dropdowns -->
       </b-navbar-nav>
     </b-navbar>
