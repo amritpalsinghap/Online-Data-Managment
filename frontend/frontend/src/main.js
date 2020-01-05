@@ -7,7 +7,7 @@ import BootStrapVue from "bootstrap-vue";
 import "./custom.scss";
 
 Vue.config.productionTip = false;
-require('./components/global');
+require("./components/global");
 Vue.use(BootStrapVue);
 new Vue({
   router,
