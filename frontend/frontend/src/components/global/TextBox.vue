@@ -24,7 +24,7 @@ export default {
       require: true,
       default: "Enter Here"
     },
-    labelText: {
+     labelText: {
       type: String,
       require: true,
       default: "TODO"
